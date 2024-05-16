@@ -1,4 +1,4 @@
-const {TicTacToe}=require('../src/components/tic-tac-toe')
+const {TicTacToe}=require('../build/src/components/tic-tac-toe')
 
 describe("A suite", function() {
   it("contains spec with an expectation", function() {
