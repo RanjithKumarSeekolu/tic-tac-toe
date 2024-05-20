@@ -108,6 +108,30 @@ export class TicTacToe{
         return this.board.every(row=>row.every(cell=>(cell==='X' || cell==='O')));
     }
 
+    markPosition=(row:number,col:number):void=>{
+        const {gridSize,board,currPlayer}=this;
+        if(row>=0 && row<gridSize && col>=0 && col<gridSize && board[row][col]!=='X' && board[row][col]!=='O'){
+            this.board[row][col]=currPlayer;
+            if(this.checkWin(row,col)){
+                this.printBoard();
+                console.log(colouredText(`Player ${currPlayer} wins !`,32));
+                rl.close();
+            } else if(this.isBoardFull()){
+                this.printBoard();
+                console.log(colouredText(`It's a tie!`,34));
+                rl.close();
+            }else{
+                this.currPlayer=currPlayer==='X'?'O':'X';
+                this.printBoard();
+                this.askMove();
+            }
+        }else{
+            console.log(colouredText('Invalid input. Try again!!',31));
+            this.askMove();
+            return;
+        }
+    }
+
     askMove=()=>{
         rl.question(`Player ${this.currPlayer}'s turn: Enter cell number: `, input => {
             const {gridSize,board,currPlayer}=this;
@@ -118,28 +142,7 @@ export class TicTacToe{
             }
             const row:number=Math.floor((Number(input)-1)/gridSize);
             const col:number=(Number(input)-1)%gridSize;
-
-            if(row>=0 && row<gridSize && col>=0 && col<gridSize && board[row][col]!=='X' && board[row][col]!=='O'){
-                this.board[row][col]=currPlayer;
-
-                if(this.checkWin(row,col)){
-                    this.printBoard();
-                    console.log(colouredText(`Player ${currPlayer} wins !`,32));
-                    rl.close();
-                } else if(this.isBoardFull()){
-                    this.printBoard();
-                    console.log(colouredText(`It's a tie!`,34));
-                    rl.close();
-                }else{
-                    this.currPlayer=currPlayer==='X'?'O':'X';
-                    this.printBoard();
-                    this.askMove();
-                }
-            }else{
-                console.log(colouredText('Invalid input. Try again!!',31));
-                this.askMove();
-                return;
-            }
+            this.markPosition(row,col);
         });
     }
 
