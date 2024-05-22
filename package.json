@@ -5,7 +5,9 @@
   "main": "./build/index.js",
   "scripts": {
     "test": "jasmine",
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "karma": "./node_modules/karma/bin/karma start",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,9 @@
   "devDependencies": {
     "@types/node": "^20.12.11",
     "jasmine": "^5.1.0",
+    "karma": "^6.4.3",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
     "typescript": "^5.4.5"
   }
 }
