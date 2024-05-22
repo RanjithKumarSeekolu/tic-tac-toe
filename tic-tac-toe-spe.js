@@ -1,5 +1,5 @@
 
-const {TicTacToe}=require('../build/src/components/tic-tac-toe')
+const {TicTacToe}=require('./build/src/components/tic-tac-toe')
 
 xdescribe("Tic-Tac-Toe suite - 1", function(){
   beforeEach(function(){
