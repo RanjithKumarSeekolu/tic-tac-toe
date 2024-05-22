@@ -1,9 +1,21 @@
 const {TicTacToe}=require('../build/src/components/tic-tac-toe')
 
+describe("Test suite for creating instance", function(){
+    it("fail: should create board with size:3, winLength:4", function(){
+        expect(() => new TicTacToe(4, 8)).toThrow(new Error("Win length should be less than gid size"));
+    })
+    it("pass: should create board with size:3, winLength:3", function(){
+        expect(() => new TicTacToe(4, 4)).not.toThrow();
+    })
+    it("pass: should create board with size:5, winLength:3", function(){
+        expect(() => new TicTacToe(5, 3)).not.toThrow();
+    })
+})
+
 describe("Test suite for 3X3 grid",function(){
 
     beforeEach(function(){
-        this.board=new TicTacToe(3,4);
+        this.board=new TicTacToe(3,3);
     })
 
     it("should check for instance", function(){
@@ -37,6 +49,8 @@ describe("Test suite for 3X3 grid",function(){
 
 })
 
-describe("Test suite for 5X5 grid", function(){
-    
+xdescribe("Test suite for 5X5 grid", function(){
+    it("should create an instance", function(){
+
+    })
 })
