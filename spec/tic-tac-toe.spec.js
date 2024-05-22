@@ -3,7 +3,7 @@ const {TicTacToe}=require('../build/src/components/tic-tac-toe')
 describe("Test suite for 3X3 grid",function(){
 
     beforeEach(function(){
-        this.board=new TicTacToe(3,3);
+        this.board=new TicTacToe(3,4);
     })
 
     it("should check for instance", function(){
@@ -35,4 +35,8 @@ describe("Test suite for 3X3 grid",function(){
         })
     })
 
+})
+
+describe("Test suite for 5X5 grid", function(){
+    
 })

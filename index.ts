@@ -7,7 +7,7 @@ const gridSize:number=3;
 const winStreakLength:number=3;
 
 //instance of game1
-const game1=new TicTacToe();
+const game1=new TicTacToe(3,3);
 console.log(game1.setPosition(0,0,'X'));
 console.log(game1.setPosition(0,1,'X'));
 console.log(game1.setPosition(0,2,'X'));

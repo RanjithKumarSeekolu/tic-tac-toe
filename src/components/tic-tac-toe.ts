@@ -8,6 +8,9 @@ export class TicTacToe {
     constructor(private size:number = 3, private winLength = 3){
         this.size=size;
         this.winLength=winLength;
+        if(this.winLength>this.size){
+            throw new Error("Win length should be less than gid size")
+        }
         this.createBoard();
     }
 
