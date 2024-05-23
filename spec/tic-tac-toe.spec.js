@@ -10,6 +10,12 @@ describe("Test suite for creating instance", function(){
     it("pass: should create board with size:5, winLength:3", function(){
         expect(() => new TicTacToe(5, 3)).not.toThrow();
     })
+    it("fail: should create board with size:1, winLength:1", function(){
+        expect(()=>new TicTacToe(1,1)).toThrow(new Error("Grid size shouldn't be less than 3"));
+    })
+    it("fail: should create board with size:2, winLength:3", function(){
+        expect(()=>new TicTacToe(2,3)).toThrow(new Error("Grid size shouldn't be less than 3"));
+    })
 })
 
 describe("Test suite for 3X3 grid",function(){
