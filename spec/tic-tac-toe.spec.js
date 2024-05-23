@@ -110,6 +110,7 @@ describe("Test suite for 5X5 grid & winLength:4", function () {
       [2, 1, "O"],
       [0, 0, "X"],
       [1, 1, "O"],
+      [1, 4, "X"],
       [-1, -1, "X"],
       [-1, 1, "O"],
       [26, -1, "X"],
