@@ -1,60 +1,73 @@
-import { Player,Board } from '../types/tictactoe';
+import { Player, Board } from "../types/tictactoe";
 
 export class TicTacToe {
-    
-    board:Board = [];
-    filledCells:number=0;
+  board: Board = [];
+  filledCells: number = 0;
 
-    constructor(private size:number = 3, private winLength = 3){
-        this.size=size;
-        this.winLength=winLength;
-        if(this.size<3){
-            throw new Error("Grid size shouldn't be less than 3");
-        }
-        if(this.winLength>this.size){
-            throw new Error("Win length should be less than gid size")
-        }
-        this.createBoard();
+  constructor(private size: number = 3, private winLength = 3) {
+    this.size = size;
+    this.winLength = winLength;
+    if (this.size < 3) {
+      throw new Error("Grid size shouldn't be less than 3");
+    }
+    if (this.winLength > this.size) {
+      throw new Error("Win length should be less than gid size");
+    }
+    this.createBoard();
+  }
+
+  private createBoard() {
+    for (var i = 0; i < this.size; i++) {
+      this.board[i] = [];
+      for (var j = 0; j < this.size; j++) {
+        this.board[i][j] = i * this.size + j + 1;
+      }
+    }
+  }
+
+  private checkForWin(player: Player, inputArr: Player[]): boolean {
+    let count = 0;
+    for (let p of inputArr) {
+      if (p && p === player) count++;
+      else count = 0;
+
+      if (count === this.winLength) return true;
+    }
+    return count >= this.winLength;
+  }
+
+  public canPlay() {
+    return this.filledCells < this.size * this.size;
+  }
+
+  public setPosition(row: number, col: number, player: Player): boolean {
+    // occupy position
+    // get horizontal, vertical, diagonal, opp diagnol
+    if (
+      row === undefined ||
+      col === undefined ||
+      !player ||
+      row < 0 ||
+      row >= this.size ||
+      col < 0 ||
+      col >= this.size ||
+      this.board[row][col] === "X" ||
+      this.board[row][col] === "O"
+    ) {
+      return false;
     }
 
-    private createBoard() {
-        for(var i = 0; i < this.size; i++) {
-            this.board[i]=[];
-            for (var j = 0; j < this.size; j++) {
-                this.board[i][j]=i*this.size+j+1;
-            }
-        }
-    }
+    this.board[row][col] = player;
+    this.filledCells++;
+    const hor = this.board[row];
+    const ver = this.board.map((r) => r[col]);
+    const diag = this.board.map((r) => r[col - row + this.board.indexOf(r)]);
+    const antiDiag = this.board.map(
+      (r) => r[col + row - this.board.indexOf(r)]
+    );
 
-    private checkForWin(player: Player, inputArr: Player[]):boolean {
-        let count=0;
-        inputArr.forEach(p=>{
-            if(p===player) count++
-            else count=0;
-          
-            if(count>=this.winLength) return;
-        });
-        return count>=this.winLength;
-    }
-
-    public canPlay() {
-        return this.filledCells<this.size*this.size;
-    }
-
-    public setPosition(row: number, col: number, player: Player):boolean {
-        // occupy position
-        // get horizontal, vertical, diagonal, opp diagnol
-        if(row === undefined || col === undefined || !player || row<0 || row>=this.size || col<0 || col>=this.size || this.board[row][col]==='X' || this.board[row][col]==='O'){
-           return false;
-        }
-
-        this.board[row][col]=player;
-        this.filledCells++;
-        const hor = this.board[row];
-        const ver = this.board.map(r => r[col]);
-        const diag= this.board.map(r=>r[(col-row)+this.board.indexOf(r)]);
-        const antiDiag=this.board.map(r=>r[(col+row)-this.board.indexOf(r)]);
-
-        return !![hor, ver, diag, antiDiag].some(a => this.checkForWin(player, a));
-    }
+    return !![hor, ver, diag, antiDiag].some((a) =>
+      this.checkForWin(player, a)
+    );
+  }
 }
